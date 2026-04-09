@@ -3,6 +3,7 @@ import SkillPalette from "./components/skill/SkillPalette";
 import MacroBuilder from "./components/macro/MacroBuilder";
 import useMacroBuilder from "./hooks/useMacroBuilder";
 import MacroOutput from "./components/macro/MacroOutput";
+import MacroSummary from "./components/macro/MacroSummary";
 
 function App() {
   const {
@@ -37,6 +38,9 @@ function App() {
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">
             매크로 빌더
           </h2>
+          <div className="mb-3">
+            <MacroSummary steps={steps} totalCp={totalCp} />
+          </div>
           <MacroBuilder
             steps={steps}
             totalCp={totalCp}
