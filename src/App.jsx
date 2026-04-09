@@ -1,4 +1,6 @@
 import Header from "./components/layout/Header";
+import SkillCard from "./components/skill/SkillCard";
+import { skills } from "./data/skills";
 
 function App() {
   return (
@@ -11,7 +13,15 @@ function App() {
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">
             스킬 목록
           </h2>
-          <p className="text-xs text-gray-600">Step 5에서 구현</p>
+          <div className="space-y-2">
+            {skills.map((skill) => (
+              <SkillCard
+                key={skill.id}
+                skill={skill}
+                onClick={(s) => console.log("clicked:", s.nameKo)}
+              />
+            ))}
+          </div>
         </aside>
 
         {/* 중앙: 매크로 빌더 */}
