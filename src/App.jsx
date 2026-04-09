@@ -1,9 +1,12 @@
+import { useState } from "react";
 import Header from "./components/layout/Header";
 import SkillPalette from "./components/skill/SkillPalette";
 import MacroBuilder from "./components/macro/MacroBuilder";
-import useMacroBuilder from "./hooks/useMacroBuilder";
-import MacroOutput from "./components/macro/MacroOutput";
 import MacroSummary from "./components/macro/MacroSummary";
+import MacroOutput from "./components/macro/MacroOutput";
+import MacroImportModal from "./components/macro/MacroImportModal";
+import useMacroBuilder from "./hooks/useMacroBuilder";
+import { downloadMacroTxt } from "./utils/macroExporter";
 
 function App() {
   const {
@@ -13,8 +16,11 @@ function App() {
     moveStep,
     clearAll,
     duplicateStep,
+    importSkills,
     totalCp,
   } = useMacroBuilder();
+
+  const [showImport, setShowImport] = useState(false);
 
   const handleSkillClick = (skill) => {
     addSkill(skill.id);
@@ -35,9 +41,27 @@ function App() {
 
         {/* 중앙: 매크로 빌더 */}
         <main className="flex-1 overflow-hidden p-4 flex flex-col">
-          <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">
-            매크로 빌더
-          </h2>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">
+              매크로 빌더
+            </h2>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setShowImport(true)}
+                className="text-xs text-gray-500 hover:text-gray-300 border border-gray-700 rounded px-2 py-0.5"
+              >
+                가져오기
+              </button>
+              {steps.length > 0 && (
+                <button
+                  onClick={() => downloadMacroTxt(steps)}
+                  className="text-xs text-gray-500 hover:text-gray-300 border border-gray-700 rounded px-2 py-0.5"
+                >
+                  .txt 저장
+                </button>
+              )}
+            </div>
+          </div>
           <div className="mb-3">
             <MacroSummary steps={steps} totalCp={totalCp} />
           </div>
@@ -59,6 +83,14 @@ function App() {
           <MacroOutput steps={steps} />
         </aside>
       </div>
+
+      {/* 가져오기 모달 */}
+      {showImport && (
+        <MacroImportModal
+          onImport={importSkills}
+          onClose={() => setShowImport(false)}
+        />
+      )}
     </div>
   );
 }

@@ -58,6 +58,14 @@ export default function useMacroBuilder() {
     }, 0);
   }, [steps]);
 
+  /** 스킬 ID 배열로 일괄 추가 (가져오기용) */
+  const importSkills = useCallback((skillIds) => {
+    const newSteps = skillIds
+      .filter((id) => skillMap.has(id))
+      .map((id) => ({ uid: uid(), skillId: id }));
+    setSteps((prev) => [...addSkill(prev || []), ...newSteps]);
+  }, []);
+
   return {
     steps: steps || [],
     setSteps,
@@ -67,6 +75,7 @@ export default function useMacroBuilder() {
     moveStep,
     clearAll,
     duplicateStep,
+    importSkills,
     totalCp,
   };
 }
