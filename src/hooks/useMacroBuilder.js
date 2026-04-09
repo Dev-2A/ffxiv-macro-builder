@@ -66,6 +66,13 @@ export default function useMacroBuilder() {
     setSteps((prev) => [...addSkill(prev || []), ...newSteps]);
   }, []);
 
+  const loadPreset = useCallback((skillIds) => {
+    const newSteps = skillIds
+      .filter((id) => skillMap.has(id))
+      .map((id) => ({ uid: uid(), skillId: id }));
+    setSteps(newSteps);
+  }, []);
+
   return {
     steps: steps || [],
     setSteps,
@@ -76,6 +83,7 @@ export default function useMacroBuilder() {
     clearAll,
     duplicateStep,
     importSkills,
+    loadPreset,
     totalCp,
   };
 }

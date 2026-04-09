@@ -7,6 +7,7 @@ import MacroOutput from "./components/macro/MacroOutput";
 import MacroImportModal from "./components/macro/MacroImportModal";
 import useMacroBuilder from "./hooks/useMacroBuilder";
 import { downloadMacroTxt } from "./utils/macroExporter";
+import PresetPanel from "./components/macro/PresetPanel";
 
 function App() {
   const {
@@ -17,6 +18,7 @@ function App() {
     clearAll,
     duplicateStep,
     importSkills,
+    loadPreset,
     totalCp,
   } = useMacroBuilder();
 
@@ -64,6 +66,9 @@ function App() {
           </div>
           <div className="mb-3">
             <MacroSummary steps={steps} totalCp={totalCp} />
+          </div>
+          <div className="mb-3">
+            <PresetPanel steps={steps} onLoad={loadPreset} />
           </div>
           <MacroBuilder
             steps={steps}
