@@ -38,7 +38,8 @@ export default function MacroBuilder({
     }
   };
 
-  const macroCount = Math.ceil(steps.length / 15) || 0;
+  const linesPerMacro = 14; // echo 포함 기준
+  const macroCount = Math.ceil(steps.length / linesPerMacro) || 0;
 
   return (
     <div className="flex flex-col h-full">
@@ -96,11 +97,11 @@ export default function MacroBuilder({
                 {steps.map((step, idx) => (
                   <div key={step.uid}>
                     {/* 매크로 분할 구분선 (15줄 단위) */}
-                    {idx > 0 && idx % 15 === 0 && (
+                    {idx > 0 && idx % linesPerMacro === 0 && (
                       <div className="flex items-center gap-2 py-2">
                         <div className="flex-1 border-t border-yellow-700/50" />
                         <span className="text-[10px] text-yellow-600 shrink-0">
-                          ── 매크로 #{Math.floor(idx / 15) + 1} 시작 ──
+                          ── 매크로 #{Math.floor(idx / linesPerMacro) + 1} 시작 ──
                         </span>
                         <div className="flex-1 border-t border-yellow-700/50" />
                       </div>

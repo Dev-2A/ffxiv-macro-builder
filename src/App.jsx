@@ -2,6 +2,7 @@ import Header from "./components/layout/Header";
 import SkillPalette from "./components/skill/SkillPalette";
 import MacroBuilder from "./components/macro/MacroBuilder";
 import useMacroBuilder from "./hooks/useMacroBuilder";
+import MacroOutput from "./components/macro/MacroOutput";
 
 function App() {
   const {
@@ -47,11 +48,11 @@ function App() {
         </main>
 
         {/* 우측: 매크로 출력 */}
-        <aside className="w-full lg:w-80 border-t lg:border-t-0 lg:border-l border-gray-800 bg-gray-900/50 overflow-y-auto p-4">
+        <aside className="w-full lg:w-80 border-t lg:border-t-0 lg:border-l border-gray-800 bg-gray-900/50 overflow-hidden p-4 flex flex-col max-h-[40vh] lg:max-h-none">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">
             매크로 출력
           </h2>
-          <p className="text-xs text-gray-600">Step 7에서 구현</p>
+          <MacroOutput steps={steps} />
         </aside>
       </div>
     </div>
