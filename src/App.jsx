@@ -1,27 +1,22 @@
 import Header from "./components/layout/Header";
-import SkillCard from "./components/skill/SkillCard";
-import { skills } from "./data/skills";
+import SkillPalette from "./components/skill/SkillPalette";
 
 function App() {
+  const handleSkillClick = (skill) => {
+    console.log("선택:", skill.nameKo, `(CP ${skill.cp})`);
+  };
+
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100 flex flex-col">
       <Header />
 
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
         {/* 좌측: 스킬 팔레트 */}
-        <aside className="w-full lg:w-80 border-b lg:border-b-0 lg:border-r border-gray-800 bg-gray-900/50 overflow-y-auto p-4">
+        <aside className="w-full lg:w-80 border-b lg:border-b-0 lg:border-r border-gray-800 bg-gray-900/50 overflow-hidden p-4 flex flex-col max-h-[40vh] lg:max-h-none">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">
             스킬 목록
           </h2>
-          <div className="space-y-2">
-            {skills.map((skill) => (
-              <SkillCard
-                key={skill.id}
-                skill={skill}
-                onClick={(s) => console.log("clicked:", s.nameKo)}
-              />
-            ))}
-          </div>
+          <SkillPalette onSkillClick={handleSkillClick} />
         </aside>
 
         {/* 중앙: 매크로 빌더 */}
